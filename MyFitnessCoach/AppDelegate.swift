@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabs.viewControllers = [searchVC, routinesNav, homeVC, settingsVC]
         UITabBar.appearance().barTintColor = UIColor(red: 78/255, green: 179/255, blue: 212/255, alpha: 1)
         UITabBar.appearance().tintColor = UIColor.white
+        tabs.selectedViewController = homeVC
         
         self.window!.rootViewController = tabs
         self.window!.makeKeyAndVisible()
