@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		A7A1704D1E87695F007DE3CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1704C1E87695F007DE3CA /* AppDelegate.swift */; };
-		A7A1704F1E87695F007DE3CA /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1704E1E87695F007DE3CA /* FirstViewController.swift */; };
-		A7A170511E87695F007DE3CA /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170501E87695F007DE3CA /* SecondViewController.swift */; };
 		A7A170541E87695F007DE3CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A170521E87695F007DE3CA /* Main.storyboard */; };
 		A7A170561E87695F007DE3CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A170551E87695F007DE3CA /* Assets.xcassets */; };
 		A7A170591E87695F007DE3CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A170571E87695F007DE3CA /* LaunchScreen.storyboard */; };
 		A7A170641E87695F007DE3CA /* MyFitnessCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170631E87695F007DE3CA /* MyFitnessCoachTests.swift */; };
 		A7A1706F1E87695F007DE3CA /* MyFitnessCoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1706E1E87695F007DE3CA /* MyFitnessCoachUITests.swift */; };
+		A7A170841E8769CF007DE3CA /* DataModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1707C1E8769CF007DE3CA /* DataModelManager.swift */; };
+		A7A170851E8769CF007DE3CA /* ExerciseCreatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1707D1E8769CF007DE3CA /* ExerciseCreatorVC.swift */; };
+		A7A170861E8769CF007DE3CA /* ExerciseViewerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1707E1E8769CF007DE3CA /* ExerciseViewerVC.swift */; };
+		A7A170871E8769CF007DE3CA /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1707F1E8769CF007DE3CA /* HomeVC.swift */; };
+		A7A170881E8769CF007DE3CA /* RoutinesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170801E8769CF007DE3CA /* RoutinesVC.swift */; };
+		A7A170891E8769CF007DE3CA /* RoutineViewerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170811E8769CF007DE3CA /* RoutineViewerVC.swift */; };
+		A7A1708A1E8769CF007DE3CA /* SavedExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170821E8769CF007DE3CA /* SavedExercisesVC.swift */; };
+		A7A1708B1E8769CF007DE3CA /* ScheduleEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170831E8769CF007DE3CA /* ScheduleEditorVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +43,6 @@
 /* Begin PBXFileReference section */
 		A7A170491E87695F007DE3CA /* MyFitnessCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFitnessCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A1704C1E87695F007DE3CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A7A1704E1E87695F007DE3CA /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		A7A170501E87695F007DE3CA /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		A7A170531E87695F007DE3CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7A170551E87695F007DE3CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7A170581E87695F007DE3CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +53,14 @@
 		A7A1706A1E87695F007DE3CA /* MyFitnessCoachUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFitnessCoachUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A1706E1E87695F007DE3CA /* MyFitnessCoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFitnessCoachUITests.swift; sourceTree = "<group>"; };
 		A7A170701E87695F007DE3CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7A1707C1E8769CF007DE3CA /* DataModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelManager.swift; sourceTree = "<group>"; };
+		A7A1707D1E8769CF007DE3CA /* ExerciseCreatorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseCreatorVC.swift; sourceTree = "<group>"; };
+		A7A1707E1E8769CF007DE3CA /* ExerciseViewerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseViewerVC.swift; sourceTree = "<group>"; };
+		A7A1707F1E8769CF007DE3CA /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		A7A170801E8769CF007DE3CA /* RoutinesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutinesVC.swift; sourceTree = "<group>"; };
+		A7A170811E8769CF007DE3CA /* RoutineViewerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineViewerVC.swift; sourceTree = "<group>"; };
+		A7A170821E8769CF007DE3CA /* SavedExercisesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedExercisesVC.swift; sourceTree = "<group>"; };
+		A7A170831E8769CF007DE3CA /* ScheduleEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleEditorVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +111,15 @@
 		A7A1704B1E87695F007DE3CA /* MyFitnessCoach */ = {
 			isa = PBXGroup;
 			children = (
+				A7A1707C1E8769CF007DE3CA /* DataModelManager.swift */,
+				A7A1707D1E8769CF007DE3CA /* ExerciseCreatorVC.swift */,
+				A7A1707E1E8769CF007DE3CA /* ExerciseViewerVC.swift */,
+				A7A1707F1E8769CF007DE3CA /* HomeVC.swift */,
+				A7A170801E8769CF007DE3CA /* RoutinesVC.swift */,
+				A7A170811E8769CF007DE3CA /* RoutineViewerVC.swift */,
+				A7A170821E8769CF007DE3CA /* SavedExercisesVC.swift */,
+				A7A170831E8769CF007DE3CA /* ScheduleEditorVC.swift */,
 				A7A1704C1E87695F007DE3CA /* AppDelegate.swift */,
-				A7A1704E1E87695F007DE3CA /* FirstViewController.swift */,
-				A7A170501E87695F007DE3CA /* SecondViewController.swift */,
 				A7A170521E87695F007DE3CA /* Main.storyboard */,
 				A7A170551E87695F007DE3CA /* Assets.xcassets */,
 				A7A170571E87695F007DE3CA /* LaunchScreen.storyboard */,
@@ -262,9 +280,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7A170511E87695F007DE3CA /* SecondViewController.swift in Sources */,
+				A7A1708B1E8769CF007DE3CA /* ScheduleEditorVC.swift in Sources */,
+				A7A1708A1E8769CF007DE3CA /* SavedExercisesVC.swift in Sources */,
+				A7A170861E8769CF007DE3CA /* ExerciseViewerVC.swift in Sources */,
+				A7A170881E8769CF007DE3CA /* RoutinesVC.swift in Sources */,
+				A7A170891E8769CF007DE3CA /* RoutineViewerVC.swift in Sources */,
+				A7A170871E8769CF007DE3CA /* HomeVC.swift in Sources */,
 				A7A1704D1E87695F007DE3CA /* AppDelegate.swift in Sources */,
-				A7A1704F1E87695F007DE3CA /* FirstViewController.swift in Sources */,
+				A7A170851E8769CF007DE3CA /* ExerciseCreatorVC.swift in Sources */,
+				A7A170841E8769CF007DE3CA /* DataModelManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +533,7 @@
 				A7A170751E87695F007DE3CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A7A170761E87695F007DE3CA /* Build configuration list for PBXNativeTarget "MyFitnessCoachTests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +542,7 @@
 				A7A170781E87695F007DE3CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A7A170791E87695F007DE3CA /* Build configuration list for PBXNativeTarget "MyFitnessCoachUITests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +551,7 @@
 				A7A1707B1E87695F007DE3CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

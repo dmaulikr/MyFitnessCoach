@@ -16,6 +16,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow.init(frame : UIScreen.main.bounds)
+        
+        window!.backgroundColor = UIColor.white
+        
+        let searchVC = HomeVC()
+        searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "searchTabIcon"), tag: 1)
+        
+        let homeVC = HomeVC()
+        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "homeTabIcon"), tag: 1)
+        
+        let routinesNav = UINavigationController()
+        let routinesVC = RoutinesVC()
+        routinesNav.viewControllers = [routinesVC]
+        routinesNav.tabBarItem = UITabBarItem(title: "Exercises", image: UIImage(named: "exercisesTabIcon"), tag: 1)
+        
+        let settingsVC = HomeVC()
+        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settingsTabIcon"), tag: 1)
+        
+        let tabs = UITabBarController()
+        tabs.viewControllers = [searchVC, routinesNav, homeVC, settingsVC]
+        UITabBar.appearance().barTintColor = UIColor(red: 78/255, green: 179/255, blue: 212/255, alpha: 1)
+        UITabBar.appearance().tintColor = UIColor.white
+        
+        self.window!.rootViewController = tabs
+        self.window!.makeKeyAndVisible()
+        
         return true
     }
 
