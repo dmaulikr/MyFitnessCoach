@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		A73D069E1E88B203003C7359 /* WeeklyScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D069D1E88B203003C7359 /* WeeklyScheduleView.swift */; };
 		A7A1704D1E87695F007DE3CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1704C1E87695F007DE3CA /* AppDelegate.swift */; };
-		A7A170541E87695F007DE3CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A170521E87695F007DE3CA /* Main.storyboard */; };
 		A7A170561E87695F007DE3CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A170551E87695F007DE3CA /* Assets.xcassets */; };
 		A7A170591E87695F007DE3CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7A170571E87695F007DE3CA /* LaunchScreen.storyboard */; };
 		A7A170641E87695F007DE3CA /* MyFitnessCoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170631E87695F007DE3CA /* MyFitnessCoachTests.swift */; };
@@ -45,7 +44,6 @@
 		A73D069D1E88B203003C7359 /* WeeklyScheduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleView.swift; sourceTree = "<group>"; };
 		A7A170491E87695F007DE3CA /* MyFitnessCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFitnessCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A1704C1E87695F007DE3CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A7A170531E87695F007DE3CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7A170551E87695F007DE3CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7A170581E87695F007DE3CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7A1705A1E87695F007DE3CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				A7A170821E8769CF007DE3CA /* SavedExercisesVC.swift */,
 				A7A170831E8769CF007DE3CA /* ScheduleEditorVC.swift */,
 				A7A1704C1E87695F007DE3CA /* AppDelegate.swift */,
-				A7A170521E87695F007DE3CA /* Main.storyboard */,
 				A7A170551E87695F007DE3CA /* Assets.xcassets */,
 				A7A170571E87695F007DE3CA /* LaunchScreen.storyboard */,
 				A7A1705A1E87695F007DE3CA /* Info.plist */,
@@ -258,7 +255,6 @@
 			files = (
 				A7A170591E87695F007DE3CA /* LaunchScreen.storyboard in Resources */,
 				A7A170561E87695F007DE3CA /* Assets.xcassets in Resources */,
-				A7A170541E87695F007DE3CA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,14 +324,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A7A170521E87695F007DE3CA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7A170531E87695F007DE3CA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A7A170571E87695F007DE3CA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -10,6 +10,8 @@ import UIKit
 
 class RoutineViewerVC : UIViewController {
     
+    var routine : [String : AnyObject]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

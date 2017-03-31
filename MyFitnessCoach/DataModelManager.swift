@@ -8,8 +8,12 @@
 
 import Foundation
 
-class DataModelManager {
+let DMM = DataModelManager.sharedManager
+
+final class DataModelManager {
     
     static let sharedManager = DataModelManager()
+    
+    let dataDic : [String : AnyObject] = [:]
     
 }
