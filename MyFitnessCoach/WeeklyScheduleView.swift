@@ -65,6 +65,7 @@ class WeeklyScheduleView : UIView {
             dayStatusViews[i].dayName = weekdayMapping[i]
             dayStatusViews[i].date = dateForCurrentStatusView
             dayStatusViews[i].dayCheckInStatus = calculateCheckInStatus(dateToCheck: dateForCurrentStatusView)
+            dayStatusViews[i].linkedRoutine = [:]   // placeholder
             
             dateForCurrentStatusView = Date(timeInterval: TimeInterval(24 * 3600), since: dateForCurrentStatusView)
             addSubview(dayStatusViews[i])
@@ -157,12 +158,11 @@ class WeekdayStatusView : UIView {
             let routineViewerVC = RoutineViewerVC()
             routineViewerVC.routine = linkedRoutine!
             UIApplication.topViewController()?.present(routineViewerVC, animated: true, completion: nil)
-            // change this to navigation controller push
         }
     }
     
     func refresh() {
-        let fillInBox = UIView(frame: CGRect(x: 0, y: dayLabel.frame.height, width : (screenWidth - 44) / 8, height : calendarDayImage.frame.height - dayLabel.frame.height - 5))
+        let fillInBox = UIView(frame: CGRect(x: 2, y: dayLabel.frame.height + 10, width : (screenWidth - 44) / 8 - 4, height : calendarDayImage.frame.height - dayLabel.frame.height - 14))
         switch dayCheckInStatus! {
         case .checkedIn:
             fillInBox.backgroundColor = UIColor.green

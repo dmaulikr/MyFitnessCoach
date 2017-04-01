@@ -19,7 +19,7 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
     
     private lazy var titleLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: standardFont, size: 26)
+        label.font = UIFont(name: standardFont, size: 20)
         label.text = "Your Progress This Week"
         return label
     }()
@@ -35,6 +35,18 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         let label = UILabel()
         label.font = UIFont(name: standardFont, size: 14)
         return label
+    }()
+    
+    private lazy var currentWorkoutLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: standardFont, size: 20)
+        return label
+    }()
+    
+    private lazy var workoutContainerView : UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.blue
+        return view
     }()
     
     private lazy var editScheduleButton : UIButton = {
@@ -82,16 +94,33 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         
         y = y + weekCalendarView.frame.height + 10
         
+        // Check in Count Label
+        
         checkInCountLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 20)
         checkInCountLabel.text = "In the past 7 days, you have checked in \(checkInsForWeek?.count ?? 0) times."
         view.addSubview(checkInCountLabel)
         
-        y = y + editScheduleButton.frame.height + 10
+        y = y + checkInCountLabel.frame.height + 10
+        
+        // Today's Workout Zone
+        
+        currentWorkoutLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 30)
+        currentWorkoutLabel.text = "Today's Scheduled Workout Routine"
+        view.addSubview(currentWorkoutLabel)
+        
+        y = y + currentWorkoutLabel.frame.height + 10
+        
+        workoutContainerView.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 140)
+        view.addSubview(workoutContainerView)
+        
+        y = y + workoutContainerView.frame.height + 10
+        
+        // Check In Button
         
         checkInButton.frame = CGRect(x: xMargin, y: y, width: view.frame.width - 2 * xMargin, height: 75)
         view.addSubview(checkInButton)
         
-        y = y + checkInCountLabel.frame.height + 10
+        y = y + checkInButton.frame.height + 10
         
         // ADD IN TODAY'S WORKOUT AREA
         
