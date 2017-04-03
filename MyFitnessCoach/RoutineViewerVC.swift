@@ -16,15 +16,107 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    private var tableViewOn : Bool = true
+    
     private var includedExercises : [String : AnyObject]?
     
     private var exerciseTableView = UITableView()
     private var exerciseCollectionView = UICollectionView()
     
+    private lazy var routineNameHeader : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Routine Name: ")
+    
+    private lazy var routineNameLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16))
+    
+    private lazy var creatorNameHeader : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Creator Name: ")
+    
+    private lazy var creatorNameLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16))
+
+    private lazy var muscleGroupsLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Muscle Groups: ")
+    
+    // Add in grouping boxes and adding function here (the view)
+    
+    private lazy var exercisesHeader : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 22), text: "Exercises Included: ")
+    
+    private lazy var detailsSwitch : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Details Off")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let xMargin : CGFloat = 10
+        var y : CGFloat = 10
+        
+        // Routine and Creator Label and Names
+        
+        routineNameHeader.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        view.addSubview(routineNameHeader)
+        
+        creatorNameHeader.frame = CGRect(x: routineNameHeader.frame.maxX + xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        view.addSubview(creatorNameHeader)
+        
+        y = y + routineNameHeader.frame.height + 10
+        
+        routineNameLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        view.addSubview(routineNameLabel)
+        
+        creatorNameLabel.frame = CGRect(x: creatorNameHeader.frame.maxX + xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        view.addSubview(creatorNameLabel)
+        
+        y = y + routineNameLabel.frame.height + 10
+        
+        // Muscle Groups
+        
+        muscleGroupsLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: screenHeight / 8)
+        view.addSubview(muscleGroupsLabel)
+        
+        y = y + muscleGroupsLabel.frame.height + 10
+        
+        // add muscle group boxes
+        
+        // Exercises
+        
+        exercisesHeader.frame = CGRect(x: xMargin, y: y, width: 2 * (screenWidth / 3) - 2 * xMargin, height: screenHeight / 8)
+        view.addSubview(exercisesHeader)
+        
+        detailsSwitch.frame = CGRect(x: exercisesHeader.frame.width + 2 * xMargin, y: y, width: screenWidth / 3 - 2 * xMargin, height: screenHeight / 8)
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleExerciseView))
+        detailsSwitch.addGestureRecognizer(tapRecognizer)
+        view.addSubview(detailsSwitch)
+        
+        y = y + exercisesHeader.frame.height + 10
+        
+        // TableView/CollectionView Container View
+        let exercisesContainerView : UIView = UIView(frame: CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 5 * (screenHeight / 8) - 20))
+        
+        let containerOptionsTab = UIView(frame: CGRect(x: 0, y: 0, width: exercisesContainerView.frame.width, height: 25))
+        containerOptionsTab.backgroundColor = UIColor.blue
+        exercisesContainerView.addSubview(containerOptionsTab)
+        
+        exerciseTableView.frame = CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height)
+        exercisesContainerView.addSubview(exerciseTableView)
+        
+        exerciseCollectionView.frame = CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height)
+        exercisesContainerView.addSubview(exerciseCollectionView)
+        
+        view.addSubview(exercisesContainerView)
+        
         exerciseTableView.register(ExerciseTableViewCell.self, forCellReuseIdentifier: "exerciseTableCell")
         exerciseCollectionView.register(ExerciseCollectionViewCell.self, forCellWithReuseIdentifier: "exerciseCollectionCell")
+        
+    }
+    
+    func addMuscleGroup() {
+        print("Called addMuscleGroup")
+    }
+    
+    func toggleExerciseView() {
+        tableViewOn = !tableViewOn
+        exerciseTableView.isHidden = !tableViewOn
+        exerciseCollectionView.isHidden = tableViewOn
+        if tableViewOn {
+            detailsSwitch.text = "Details Off"
+        } else {
+            detailsSwitch.text = "Details On"
+        }
     }
     
     // MARK: Table View
@@ -245,6 +337,8 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         setsTextField.frame = CGRect(x: setsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: setsLabel.frame.height)
         contentView.addSubview(setsTextField)
         
+        setsTextField.text = progressInfo?["sets"] as? String
+        
         y = y + (mediaImageView.frame.height / 3)
         
         repsLabel.frame = CGRect(x: mediaImageView.frame.width + 2 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
@@ -253,6 +347,8 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         repsTextField.frame = CGRect(x: repsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: repsLabel.frame.height)
         contentView.addSubview(repsTextField)
         
+        repsTextField.text = progressInfo?["reps"] as? String
+        
         y = y + (mediaImageView.frame.height / 3)
         
         weightLabel.frame = CGRect(x: mediaImageView.frame.width + 2 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
@@ -260,6 +356,8 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         
         weightTextField.frame = CGRect(x: weightLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: weightLabel.frame.height)
         contentView.addSubview(weightTextField)
+        
+        weightTextField.text = progressInfo?["weight"] as? String
         
         y = y + (mediaImageView.frame.height / 3) + 10
         
