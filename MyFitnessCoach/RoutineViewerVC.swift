@@ -13,6 +13,8 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     var routine : Routine? {
         didSet {
             includedExercises = routine?.exercisesIncluded
+            routineNameLabel.text = routine?.title
+            creatorNameLabel.text = routine?.creatorName
         }
     }
     
@@ -20,8 +22,9 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     
     private var includedExercises : [Exercise]?
     
-    private var exerciseTableView = UITableView()
-    private var exerciseCollectionView = UICollectionView()
+    private var exerciseTableView : UITableView?
+    
+    private var exerciseCollectionView : UICollectionView?
     
     private lazy var routineNameHeader : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Routine Name: ")
     
@@ -47,25 +50,25 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         
         // Routine and Creator Label and Names
         
-        routineNameHeader.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        routineNameHeader.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: 24)
         view.addSubview(routineNameHeader)
         
-        creatorNameHeader.frame = CGRect(x: routineNameHeader.frame.maxX + xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        creatorNameHeader.frame = CGRect(x: routineNameHeader.frame.maxX + xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: 24)
         view.addSubview(creatorNameHeader)
         
         y = y + routineNameHeader.frame.height + 10
         
-        routineNameLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        routineNameLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: 24)
         view.addSubview(routineNameLabel)
         
-        creatorNameLabel.frame = CGRect(x: creatorNameHeader.frame.maxX + xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: screenHeight / 8)
+        creatorNameLabel.frame = CGRect(x: creatorNameHeader.frame.minX + xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: 24)
         view.addSubview(creatorNameLabel)
         
         y = y + routineNameLabel.frame.height + 10
         
         // Muscle Groups
         
-        muscleGroupsLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: screenHeight / 8)
+        muscleGroupsLabel.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 24)
         view.addSubview(muscleGroupsLabel)
         
         y = y + muscleGroupsLabel.frame.height + 10
@@ -74,10 +77,10 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         
         // Exercises
         
-        exercisesHeader.frame = CGRect(x: xMargin, y: y, width: 2 * (screenWidth / 3) - 2 * xMargin, height: screenHeight / 8)
+        exercisesHeader.frame = CGRect(x: xMargin, y: y, width: 2 * (screenWidth / 3) - 2 * xMargin, height: 24)
         view.addSubview(exercisesHeader)
         
-        detailsSwitch.frame = CGRect(x: exercisesHeader.frame.width + 2 * xMargin, y: y, width: screenWidth / 3 - 2 * xMargin, height: screenHeight / 8)
+        detailsSwitch.frame = CGRect(x: exercisesHeader.frame.width + 2 * xMargin, y: y, width: screenWidth / 3 - 2 * xMargin, height: 24)
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleExerciseView))
         detailsSwitch.addGestureRecognizer(tapRecognizer)
         view.addSubview(detailsSwitch)
@@ -88,19 +91,31 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         let exercisesContainerView : UIView = UIView(frame: CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 5 * (screenHeight / 8) - 20))
         
         let containerOptionsTab = UIView(frame: CGRect(x: 0, y: 0, width: exercisesContainerView.frame.width, height: 25))
-        containerOptionsTab.backgroundColor = UIColor.blue
+        containerOptionsTab.backgroundColor = UIColor.white
         exercisesContainerView.addSubview(containerOptionsTab)
         
-        exerciseTableView.frame = CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height)
-        exercisesContainerView.addSubview(exerciseTableView)
+        exerciseTableView = UITableView(frame: CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height))
         
-        exerciseCollectionView.frame = CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height)
-        exercisesContainerView.addSubview(exerciseCollectionView)
+        exerciseTableView?.delegate = self
+        exerciseTableView?.dataSource = self
+        
+        exercisesContainerView.addSubview(exerciseTableView!)
+        
+        let exerciseFlowLayout = UICollectionViewFlowLayout()
+        exerciseFlowLayout.scrollDirection = .vertical
+        
+        exerciseCollectionView = UICollectionView(frame: CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height), collectionViewLayout: exerciseFlowLayout)
+
+        exerciseCollectionView?.isHidden = tableViewOn
+        
+        exercisesContainerView.addSubview(exerciseCollectionView!)
+        exerciseCollectionView?.delegate = self
+        exerciseCollectionView?.dataSource = self
         
         view.addSubview(exercisesContainerView)
         
-        exerciseTableView.register(ExerciseTableViewCell.self, forCellReuseIdentifier: "exerciseTableCell")
-        exerciseCollectionView.register(ExerciseCollectionViewCell.self, forCellWithReuseIdentifier: "exerciseCollectionCell")
+        exerciseTableView?.register(ExerciseTableViewCell.self, forCellReuseIdentifier: "exerciseTableCell")
+        exerciseCollectionView?.register(ExerciseCollectionViewCell.self, forCellWithReuseIdentifier: "exerciseCollectionCell")
         
     }
     
@@ -109,9 +124,10 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     }
     
     func toggleExerciseView() {
+        print("toggled")
         tableViewOn = !tableViewOn
-        exerciseTableView.isHidden = !tableViewOn
-        exerciseCollectionView.isHidden = tableViewOn
+        exerciseTableView?.isHidden = !tableViewOn
+        exerciseCollectionView?.isHidden = tableViewOn
         if tableViewOn {
             detailsSwitch.text = "Details Off"
         } else {
@@ -186,7 +202,7 @@ class ExerciseTableViewCell : UITableViewCell {
         let xMargin : CGFloat = 20
         
         backgroundView?.frame = CGRect(x: 0, y: 0, width: screenWidth - 2 * xMargin, height: screenHeight / 6)
-        backgroundView?.backgroundColor = UIColor.clear
+        backgroundView?.backgroundColor = UIColor.white
         
         // Content View
         

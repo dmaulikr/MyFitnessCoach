@@ -14,17 +14,19 @@ final class DataModelManager {
     
     static let sharedManager = DataModelManager()
     
-    var dataDic : [String : AnyObject] =
-        ["schedule" : Schedule() as AnyObject,
-         "checkInDates" : [Date]() as AnyObject,
-         "savedExercises" : [Exercise]() as AnyObject,
-         "routines" : [Routine]() as AnyObject]
+    var schedule = Schedule()
+    var checkInDates = [Date]()
+    var savedExercises = [Exercise]()
+    var routines = [Routine]()
     
+    // sample data
     init() {
         let date1 = Date()
         let date2 = date1.addingTimeInterval(TimeInterval(24 * 3600))
         let date3 = date2.addingTimeInterval(TimeInterval(3 * 24 * 3600))
-        dataDic["checkInDates"] = [date1, date2, date3] as AnyObject
+        checkInDates = [date1, date2, date3]
+        
+        schedule.scheduledDates = checkInDates
         
         var sampleExercise = Exercise()
         sampleExercise.title = "Sample Exercise 1"
@@ -39,13 +41,13 @@ final class DataModelManager {
         sampleRoutine.exercisesIncluded = [sampleExercise, sampleExercise2]
         sampleRoutine.creatorName = "System"
         
-        dataDic["routines"] = sampleRoutine as AnyObject
-        dataDic["savedExercises"] = [sampleExercise, sampleExercise2] as AnyObject
+        routines = [sampleRoutine]
+        savedExercises = [sampleExercise, sampleExercise2]
         
     }
     
     func saveAllData() {
-        UserDefaults.standard.set(dataDic, forKey: "dataDic")
+        
     }
     
     @discardableResult func createNewExercise(createdExercise : Exercise)->Exercise {
@@ -57,10 +59,10 @@ final class DataModelManager {
         newExercise.progressData = createdExercise.progressData
         newExercise.creatorName = createdExercise.creatorName
         
-        var newSavedExercises = DMM.dataDic["savedExercises"] as? [Exercise]
-        newSavedExercises?.append(newExercise)
+        var newSavedExercises = savedExercises
+        newSavedExercises.append(newExercise)
         
-        DMM.dataDic["savedExercises"] = newSavedExercises as AnyObject?
+        savedExercises = newSavedExercises
         UserDefaults.standard.set(newSavedExercises, forKey: "savedExercises")
         
         return newExercise

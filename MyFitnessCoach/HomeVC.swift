@@ -53,14 +53,14 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         let button = UIButton()
         //let image = UIImage(named: "homeTabIcon")
         //button.setBackgroundImage(image, for: UIControlState.normal)
-        button.backgroundColor = UIColor.black
+        //button.backgroundColor = UIColor.black
         button.addTarget(self, action: #selector(HomeVC.editScheduleAction), for: .touchUpInside)
         return button
     }()
     
     private lazy var checkInButton : UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.black
+        //button.backgroundColor = UIColor.black
         button.addTarget(self, action: #selector(HomeVC.checkInAction), for: .touchUpInside)
         return button
     }()
@@ -88,8 +88,8 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         // Weekly Schedule View
         
         let weekCalendarView = WeeklyScheduleView(frame: CGRect(x: xMargin, y: y, width: screenWidth - 40, height: screenHeight / 9))
-        weekCalendarView.schedule = DMM.dataDic["schedule"] as! Schedule
-        weekCalendarView.checkedInDates = DMM.dataDic["checkedInDates"] as? [Date]
+        weekCalendarView.schedule = DMM.schedule
+        weekCalendarView.checkedInDates = DMM.checkInDates
         view.addSubview(weekCalendarView)
         
         y = y + weekCalendarView.frame.height + 10
@@ -138,8 +138,7 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
     }
     
     func getCheckInsForLast(timeFrame: TimeInterval)->[Date]? {
-        guard let allCheckIns = DMM.dataDic["checkInDates"] as? [Date] else { return nil }
-        let validDates = allCheckIns.filter {
+        let validDates = DMM.checkInDates.filter {
             return ($0.timeIntervalSinceNow > -timeFrame)
         }
         return validDates

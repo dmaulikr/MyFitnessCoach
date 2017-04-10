@@ -35,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         routinesNav.viewControllers = [routinesVC]
         routinesNav.tabBarItem = UITabBarItem(title: "Exercises", image: UIImage(named: "exercisesTabIcon"), tag: 1)
         
-        let settingsVC = HomeVC()
+        let settingsVC = RoutineViewerVC()
+        settingsVC.routine = DMM.routines[0]
         settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settingsTabIcon"), tag: 1)
         
         let tabs = UITabBarController()
@@ -89,5 +90,11 @@ extension UIApplication {
             return topViewController(controller: presented)
         }
         return controller
+    }
+}
+
+extension UIViewController {
+    func pushViewController(VC: UIViewController, animated: Bool) {
+        (self as? UINavigationController)?.pushViewController(VC, animated: animated)
     }
 }

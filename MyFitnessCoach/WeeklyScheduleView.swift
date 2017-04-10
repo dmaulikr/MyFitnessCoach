@@ -33,6 +33,7 @@ class WeeklyScheduleView : UIView {
         didSet {
             guard checkedInDates != nil else { return }
             checkedInDates = getDatesForThisWeek(dates: checkedInDates!)
+            refreshViewStatuses()
         }
     }
     
@@ -65,7 +66,8 @@ class WeeklyScheduleView : UIView {
             dayStatusViews[i].dayName = weekdayMapping[i]
             dayStatusViews[i].date = dateForCurrentStatusView
             dayStatusViews[i].dayCheckInStatus = calculateCheckInStatus(dateToCheck: dateForCurrentStatusView)
-            dayStatusViews[i].linkedRoutine = Routine()  // placeholder
+            
+            dayStatusViews[i].linkedRoutine = DMM.routines[0] // placeholder
             
             dateForCurrentStatusView = Date(timeInterval: TimeInterval(24 * 3600), since: dateForCurrentStatusView)
             addSubview(dayStatusViews[i])
@@ -94,7 +96,7 @@ class WeeklyScheduleView : UIView {
         let validTimeFrameAhead = (7 - dayOfWeek!) * (24 * 3600)
         
         return dates.filter {
-            return (currentDate.timeIntervalSince($0) > TimeInterval(validTimeFrameBehind)) && ($0.timeIntervalSinceNow < TimeInterval(validTimeFrameAhead))
+            return (currentDate.startOfDay.timeIntervalSince($0) <= TimeInterval(validTimeFrameBehind)) && ($0.startOfDay.timeIntervalSinceNow <= TimeInterval(validTimeFrameAhead))
         }
     }
     
@@ -157,7 +159,7 @@ class WeekdayStatusView : UIView {
         if linkedRoutine != nil {
             let routineViewerVC = RoutineViewerVC()
             routineViewerVC.routine = linkedRoutine!
-            UIApplication.topViewController()?.present(routineViewerVC, animated: true, completion: nil)
+            //UIApplication.shared.keyWindow?.rootViewController?.pushViewController(VC: routineViewerVC, animated: true)
         }
     }
     
