@@ -21,9 +21,9 @@ enum checkInStatus {
 
 class WeeklyScheduleView : UIView {
     
-    var schedule : [String : AnyObject]? {
+    var schedule : Schedule? {
         didSet {
-            guard let allScheduledDates = schedule?["scheduledDates"] as? [Date] else { return }
+            guard let allScheduledDates = schedule?.scheduledDates else { return }
             scheduledDatesThisWeek = getDatesForThisWeek(dates: allScheduledDates)
         }
     }
@@ -65,7 +65,7 @@ class WeeklyScheduleView : UIView {
             dayStatusViews[i].dayName = weekdayMapping[i]
             dayStatusViews[i].date = dateForCurrentStatusView
             dayStatusViews[i].dayCheckInStatus = calculateCheckInStatus(dateToCheck: dateForCurrentStatusView)
-            dayStatusViews[i].linkedRoutine = [:]   // placeholder
+            dayStatusViews[i].linkedRoutine = Routine()  // placeholder
             
             dateForCurrentStatusView = Date(timeInterval: TimeInterval(24 * 3600), since: dateForCurrentStatusView)
             addSubview(dayStatusViews[i])
@@ -125,7 +125,7 @@ class WeekdayStatusView : UIView {
     var dayName : String?
     var dayCheckInStatus : checkInStatus?
     var date : Date?
-    var linkedRoutine : [String : AnyObject]?
+    var linkedRoutine : Routine?
     
     private lazy var dayLabel : UILabel = {
         let label = UILabel()
@@ -177,6 +177,10 @@ class WeekdayStatusView : UIView {
     }
     
     // MARK: Processing Functions
+    
+    deinit {
+        print("WeeklyScheduleView deinit")
+    }
 
 }
 

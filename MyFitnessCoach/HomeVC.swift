@@ -88,7 +88,7 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         // Weekly Schedule View
         
         let weekCalendarView = WeeklyScheduleView(frame: CGRect(x: xMargin, y: y, width: screenWidth - 40, height: screenHeight / 9))
-        weekCalendarView.schedule = DMM.dataDic["schedule"] as? [String : AnyObject]
+        weekCalendarView.schedule = DMM.dataDic["schedule"] as! Schedule
         weekCalendarView.checkedInDates = DMM.dataDic["checkedInDates"] as? [Date]
         view.addSubview(weekCalendarView)
         

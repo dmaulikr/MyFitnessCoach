@@ -10,15 +10,15 @@ import UIKit
 
 final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var routine : [String : AnyObject]? {
+    var routine : Routine? {
         didSet {
-            includedExercises = routine?["exercises"] as? [String : AnyObject]
+            includedExercises = routine?.exercisesIncluded
         }
     }
     
     private var tableViewOn : Bool = true
     
-    private var includedExercises : [String : AnyObject]?
+    private var includedExercises : [Exercise]?
     
     private var exerciseTableView = UITableView()
     private var exerciseCollectionView = UICollectionView()
@@ -146,35 +146,23 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
+        
     }
     
 }
 
 class ExerciseTableViewCell : UITableViewCell {
     
-    var exerciseDic : [String : AnyObject]? {
+    var exerciseInfo : Exercise? {
         didSet {
-            if let exerciseTitle = exerciseDic?["title"] as? String {
-                title = exerciseTitle
-            } else {
-                title = "Unnamed exercise"
-            }
-            
-            if let creatorTitle = exerciseDic?["creatorName"] as? String, creatorTitle != "" {
-                creator = creatorTitle
-            } else {
-                creator = "System"
-            }
+            title = exerciseInfo?.title
+            creator = exerciseInfo?.creatorName
         }
     }
-    var mediaDic : [String : AnyObject]? {
+    
+    var mediaInfo : MediaData? {
         didSet {
-            if let image = mediaDic?["image"] as? UIImage {
-                mediaImageView.image = image
-            } else {
-                mediaImageView.image = UIImage(named: "defaultExerciseImage")
-            }
+            mediaImageView.image = mediaInfo?.photo
         }
     }
     
@@ -219,33 +207,16 @@ class ExerciseTableViewCell : UITableViewCell {
 
 class ExerciseCollectionViewCell : UICollectionViewCell {
     
-    var exerciseDic : [String : AnyObject]? {
+    var exerciseInfo : Exercise? {
         didSet {
-            if let exerciseTitle = exerciseDic?["title"] as? String {
-                title = exerciseTitle
-            } else {
-                title = "Unnamed exercise"
-            }
-            
-            if let creatorTitle = exerciseDic?["creatorName"] as? String, creatorTitle != "" {
-                creator = creatorTitle
-            } else {
-                creator = "System"
-            }
-            
-            if let progressData = exerciseDic?["progressData"] as? [String : AnyObject] {
-                progressInfo = progressData
-            }
-            
+            title = exerciseInfo?.title
+            creator = exerciseInfo?.creatorName
+            progressInfo = exerciseInfo?.progressData
         }
     }
-    var mediaDic : [String : AnyObject]? {
+    var mediaDic : MediaData? {
         didSet {
-            if let image = mediaDic?["image"] as? UIImage {
-                mediaImageView.image = image
-            } else {
-                mediaImageView.image = UIImage(named: "defaultExerciseImage")
-            }
+            mediaImageView.image = mediaDic?.photo
         }
     }
     
@@ -256,7 +227,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
     
     private var mediaImageView = UIImageView()
     
-    private var progressInfo : [String : AnyObject]?
+    private var progressInfo : [ProgressDataEntry]?
     
     private lazy var titleLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 22))
     
@@ -337,7 +308,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         setsTextField.frame = CGRect(x: setsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: setsLabel.frame.height)
         contentView.addSubview(setsTextField)
         
-        setsTextField.text = progressInfo?["sets"] as? String
+        setsTextField.text = String(describing: progressInfo?.last?.sets)
         
         y = y + (mediaImageView.frame.height / 3)
         
@@ -347,7 +318,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         repsTextField.frame = CGRect(x: repsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: repsLabel.frame.height)
         contentView.addSubview(repsTextField)
         
-        repsTextField.text = progressInfo?["reps"] as? String
+        repsTextField.text = String(describing: progressInfo?.last?.reps)
         
         y = y + (mediaImageView.frame.height / 3)
         
@@ -357,7 +328,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         weightTextField.frame = CGRect(x: weightLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: weightLabel.frame.height)
         contentView.addSubview(weightTextField)
         
-        weightTextField.text = progressInfo?["weight"] as? String
+        weightTextField.text = String(describing: progressInfo?.last?.weight)
         
         y = y + (mediaImageView.frame.height / 3) + 10
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A72BA82E1E9B04CC00A06537 /* DataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72BA82D1E9B04CC00A06537 /* DataStructs.swift */; };
 		A73D069E1E88B203003C7359 /* WeeklyScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D069D1E88B203003C7359 /* WeeklyScheduleView.swift */; };
 		A7A1704D1E87695F007DE3CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1704C1E87695F007DE3CA /* AppDelegate.swift */; };
 		A7A170561E87695F007DE3CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A170551E87695F007DE3CA /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A72BA82D1E9B04CC00A06537 /* DataStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataStructs.swift; path = ../DataStructs.swift; sourceTree = "<group>"; };
 		A73D069D1E88B203003C7359 /* WeeklyScheduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleView.swift; sourceTree = "<group>"; };
 		A7A170491E87695F007DE3CA /* MyFitnessCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFitnessCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A1704C1E87695F007DE3CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		A7A1704B1E87695F007DE3CA /* MyFitnessCoach */ = {
 			isa = PBXGroup;
 			children = (
+				A72BA82D1E9B04CC00A06537 /* DataStructs.swift */,
 				A7A1707C1E8769CF007DE3CA /* DataModelManager.swift */,
 				A7A1707D1E8769CF007DE3CA /* ExerciseCreatorVC.swift */,
 				A7A1707E1E8769CF007DE3CA /* ExerciseViewerVC.swift */,
@@ -279,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A72BA82E1E9B04CC00A06537 /* DataStructs.swift in Sources */,
 				A7A1708B1E8769CF007DE3CA /* ScheduleEditorVC.swift in Sources */,
 				A7A1708A1E8769CF007DE3CA /* SavedExercisesVC.swift in Sources */,
 				A7A170861E8769CF007DE3CA /* ExerciseViewerVC.swift in Sources */,
