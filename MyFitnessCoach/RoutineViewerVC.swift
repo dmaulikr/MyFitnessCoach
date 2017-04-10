@@ -46,7 +46,7 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         let xMargin : CGFloat = 10
-        var y : CGFloat = 10
+        var y : CGFloat = 20
         
         // Routine and Creator Label and Names
         
@@ -83,6 +83,7 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         detailsSwitch.frame = CGRect(x: exercisesHeader.frame.width + 2 * xMargin, y: y, width: screenWidth / 3 - 2 * xMargin, height: 24)
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleExerciseView))
         detailsSwitch.addGestureRecognizer(tapRecognizer)
+        detailsSwitch.isUserInteractionEnabled = true
         view.addSubview(detailsSwitch)
         
         y = y + exercisesHeader.frame.height + 10
@@ -103,10 +104,12 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         
         let exerciseFlowLayout = UICollectionViewFlowLayout()
         exerciseFlowLayout.scrollDirection = .vertical
+        exerciseFlowLayout.itemSize = CGSize(width: screenWidth - 20, height: screenHeight / 5)
         
         exerciseCollectionView = UICollectionView(frame: CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height), collectionViewLayout: exerciseFlowLayout)
 
         exerciseCollectionView?.isHidden = tableViewOn
+        exerciseCollectionView?.backgroundColor = UIColor.white
         
         exercisesContainerView.addSubview(exerciseCollectionView!)
         exerciseCollectionView?.delegate = self
@@ -143,7 +146,13 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "exerciseTableCell") as! ExerciseTableViewCell
+        cell.exerciseInfo = includedExercises?[indexPath.row]
+        //cell.mediaInfo = includedExercises?[indexPath.row].media
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return screenHeight / 6
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
@@ -158,12 +167,29 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "exerciseCollectionCell", for: indexPath) as! ExerciseCollectionViewCell
+        cell.exerciseInfo = includedExercises?[indexPath.row]
+        //cell.mediaInfo = includedExercises?[indexPath.row].media
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
+    
+    // MARK : Collection View Flow Layout
+    
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath)->CGSize {
+        return CGSize(width: screenWidth - 20, height: screenHeight / 5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 200
+    }
+    
     
 }
 
@@ -188,7 +214,7 @@ class ExerciseTableViewCell : UITableViewCell {
     
     private lazy var titleLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: standardFont, size: 22)
+        label.font = UIFont(name: standardFont, size: 18)
         return label
     }()
     
@@ -205,18 +231,18 @@ class ExerciseTableViewCell : UITableViewCell {
         backgroundView?.backgroundColor = UIColor.white
         
         // Content View
-        
         contentView.frame = CGRect(x: 0, y: 0, width: screenWidth - 2 * xMargin, height: screenHeight / 6)
         
         titleLabel.frame = CGRect(x: 10, y: 10, width: contentView.frame.width - 20, height: contentView.frame.height / 2 - 20)
-        titleLabel.text = title
+        titleLabel.text = title!
         contentView.addSubview(titleLabel)
         
-        creatorLabel.frame = CGRect(x: 10, y: contentView.frame.height - 10, width: contentView.frame.width / 2 - 20, height: contentView.frame.height / 4 - 20)
-        creatorLabel.text = creator
+        creatorLabel.frame = CGRect(x: 10, y: contentView.frame.height - 40, width: contentView.frame.width / 2 - 20, height: contentView.frame.height / 2 - 20)
+        creatorLabel.text = creator!
         contentView.addSubview(creatorLabel)
         
-        mediaImageView.frame = CGRect(x: contentView.frame.width / 2 + 10, y: 10, width: contentView.frame.width / 2 - 20, height: contentView.frame.height - 20)
+        mediaImageView.frame = CGRect(x: contentView.frame.width / 2 + 40, y: 10, width: contentView.frame.width / 2 - 60, height: contentView.frame.height - 20)
+        mediaImageView.backgroundColor = UIColor.black
         contentView.addSubview(mediaImageView)
     }
 }
@@ -230,9 +256,9 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
             progressInfo = exerciseInfo?.progressData
         }
     }
-    var mediaDic : MediaData? {
+    var mediaInfo : MediaData? {
         didSet {
-            mediaImageView.image = mediaDic?.photo
+            mediaImageView.image = mediaInfo?.photo
         }
     }
     
@@ -251,30 +277,30 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
     
     private lazy var moreDetailsLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "More Details")
     
-    private lazy var setsLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Sets: ")
+    private lazy var setsLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 14), text: "Sets: ")
     
     private lazy var setsTextField : UITextField = {
         let textField = UITextField()
         textField.placeholder = "0"
-        textField.font = UIFont(name: standardFont, size: 16)
+        textField.font = UIFont(name: standardFont, size: 14)
         return textField
     }()
     
-    private lazy var repsLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Reps/Set: ")
+    private lazy var repsLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 14), text: "Reps/Set: ")
     
     private lazy var repsTextField : UITextField = {
         let textField = UITextField()
         textField.placeholder = "0"
-        textField.font = UIFont(name: standardFont, size: 16)
+        textField.font = UIFont(name: standardFont, size: 14)
         return textField
     }()
     
-    private lazy var weightLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Weight (lbs): ")
+    private lazy var weightLabel : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 14), text: "Weight (lbs): ")
     
     private lazy var weightTextField : UITextField = {
         let textField = UITextField()
         textField.placeholder = "0"
-        textField.font = UIFont(name: standardFont, size: 16)
+        textField.font = UIFont(name: standardFont, size: 14)
         return textField
     }()
     
