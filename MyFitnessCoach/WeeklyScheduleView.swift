@@ -159,7 +159,8 @@ class WeekdayStatusView : UIView {
         if linkedRoutine != nil {
             let routineViewerVC = RoutineViewerVC()
             routineViewerVC.routine = linkedRoutine!
-            //UIApplication.shared.keyWindow?.rootViewController?.pushViewController(VC: routineViewerVC, animated: true)
+            
+            UIApplication.shared.keyWindow?.rootViewController?.tabPushViewController(VC: routineViewerVC, animated: true)
         }
     }
     

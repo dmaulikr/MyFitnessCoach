@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D3D7DB657EED30F74902749 /* Pods_MyFitnessCoach.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 357059F273FE3A16DA5C5987 /* Pods_MyFitnessCoach.framework */; };
 		A72BA82E1E9B04CC00A06537 /* DataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72BA82D1E9B04CC00A06537 /* DataStructs.swift */; };
 		A73D069E1E88B203003C7359 /* WeeklyScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73D069D1E88B203003C7359 /* WeeklyScheduleView.swift */; };
 		A7A1704D1E87695F007DE3CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A1704C1E87695F007DE3CA /* AppDelegate.swift */; };
@@ -22,6 +23,7 @@
 		A7A170891E8769CF007DE3CA /* RoutineViewerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170811E8769CF007DE3CA /* RoutineViewerVC.swift */; };
 		A7A1708A1E8769CF007DE3CA /* SavedExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170821E8769CF007DE3CA /* SavedExercisesVC.swift */; };
 		A7A1708B1E8769CF007DE3CA /* ScheduleEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A170831E8769CF007DE3CA /* ScheduleEditorVC.swift */; };
+		A7F71A261EB977FF0084CBB2 /* WebServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F71A251EB977FF0084CBB2 /* WebServicesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		357059F273FE3A16DA5C5987 /* Pods_MyFitnessCoach.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyFitnessCoach.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59A06923C2E28748A36F4F7F /* Pods_MyFitnessCoachUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyFitnessCoachUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		856376756A3A9E9E3F3A5E44 /* Pods-MyFitnessCoach.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFitnessCoach.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyFitnessCoach/Pods-MyFitnessCoach.debug.xcconfig"; sourceTree = "<group>"; };
+		9759087B3A7EB5767046B722 /* Pods-MyFitnessCoach.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyFitnessCoach.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyFitnessCoach/Pods-MyFitnessCoach.release.xcconfig"; sourceTree = "<group>"; };
 		A72BA82D1E9B04CC00A06537 /* DataStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataStructs.swift; path = ../DataStructs.swift; sourceTree = "<group>"; };
 		A73D069D1E88B203003C7359 /* WeeklyScheduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleView.swift; sourceTree = "<group>"; };
 		A7A170491E87695F007DE3CA /* MyFitnessCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFitnessCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +69,8 @@
 		A7A170811E8769CF007DE3CA /* RoutineViewerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineViewerVC.swift; sourceTree = "<group>"; };
 		A7A170821E8769CF007DE3CA /* SavedExercisesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedExercisesVC.swift; sourceTree = "<group>"; };
 		A7A170831E8769CF007DE3CA /* ScheduleEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleEditorVC.swift; sourceTree = "<group>"; };
+		A7F71A251EB977FF0084CBB2 /* WebServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesManager.swift; sourceTree = "<group>"; };
+		FD4A1EFE3195F75903197390 /* Pods_MyFitnessCoachTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyFitnessCoachTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D3D7DB657EED30F74902749 /* Pods_MyFitnessCoach.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +99,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1C8CBE323B38780C04A0A1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				856376756A3A9E9E3F3A5E44 /* Pods-MyFitnessCoach.debug.xcconfig */,
+				9759087B3A7EB5767046B722 /* Pods-MyFitnessCoach.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		85040CF16E7BA8BC94D7D701 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				357059F273FE3A16DA5C5987 /* Pods_MyFitnessCoach.framework */,
+				FD4A1EFE3195F75903197390 /* Pods_MyFitnessCoachTests.framework */,
+				59A06923C2E28748A36F4F7F /* Pods_MyFitnessCoachUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A7A170401E87695F007DE3CA = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +125,8 @@
 				A7A170621E87695F007DE3CA /* MyFitnessCoachTests */,
 				A7A1706D1E87695F007DE3CA /* MyFitnessCoachUITests */,
 				A7A1704A1E87695F007DE3CA /* Products */,
+				0F1C8CBE323B38780C04A0A1 /* Pods */,
+				85040CF16E7BA8BC94D7D701 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +157,7 @@
 				A7A170551E87695F007DE3CA /* Assets.xcassets */,
 				A7A170571E87695F007DE3CA /* LaunchScreen.storyboard */,
 				A7A1705A1E87695F007DE3CA /* Info.plist */,
+				A7F71A251EB977FF0084CBB2 /* WebServicesManager.swift */,
 			);
 			path = MyFitnessCoach;
 			sourceTree = "<group>";
@@ -156,9 +187,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7A170731E87695F007DE3CA /* Build configuration list for PBXNativeTarget "MyFitnessCoach" */;
 			buildPhases = (
+				C6D1060389E050CDDF4BFA13 /* [CP] Check Pods Manifest.lock */,
 				A7A170451E87695F007DE3CA /* Sources */,
 				A7A170461E87695F007DE3CA /* Frameworks */,
 				A7A170471E87695F007DE3CA /* Resources */,
+				FE3584C2316F4660C9630D20 /* [CP] Embed Pods Frameworks */,
+				B97264724CEE5EE29DD1426B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -277,11 +311,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B97264724CEE5EE29DD1426B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyFitnessCoach/Pods-MyFitnessCoach-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6D1060389E050CDDF4BFA13 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FE3584C2316F4660C9630D20 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyFitnessCoach/Pods-MyFitnessCoach-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A7A170451E87695F007DE3CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F71A261EB977FF0084CBB2 /* WebServicesManager.swift in Sources */,
 				A72BA82E1E9B04CC00A06537 /* DataStructs.swift in Sources */,
 				A7A1708B1E8769CF007DE3CA /* ScheduleEditorVC.swift in Sources */,
 				A7A1708A1E8769CF007DE3CA /* SavedExercisesVC.swift in Sources */,
@@ -434,6 +517,7 @@
 		};
 		A7A170741E87695F007DE3CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 856376756A3A9E9E3F3A5E44 /* Pods-MyFitnessCoach.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MyFitnessCoach/Info.plist;
@@ -446,6 +530,7 @@
 		};
 		A7A170751E87695F007DE3CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9759087B3A7EB5767046B722 /* Pods-MyFitnessCoach.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MyFitnessCoach/Info.plist;

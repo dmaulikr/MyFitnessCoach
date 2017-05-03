@@ -48,6 +48,10 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         let xMargin : CGFloat = 10
         var y : CGFloat = 20
         
+        if let navigationBarHeight = self.navigationController?.navigationBar.frame.height {
+            y = y + navigationBarHeight
+        }
+        
         // Routine and Creator Label and Names
         
         routineNameHeader.frame = CGRect(x: xMargin, y: y, width: screenWidth / 2 - 3 * xMargin, height: 24)
@@ -187,7 +191,7 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 200
+        return 250
     }
     
     
@@ -247,7 +251,7 @@ class ExerciseTableViewCell : UITableViewCell {
     }
 }
 
-class ExerciseCollectionViewCell : UICollectionViewCell {
+class ExerciseCollectionViewCell : UICollectionViewCell, UITextFieldDelegate {
     
     var exerciseInfo : Exercise? {
         didSet {
@@ -281,7 +285,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
     
     private lazy var setsTextField : UITextField = {
         let textField = UITextField()
-        textField.placeholder = "0"
+        textField.text = "0"
         textField.font = UIFont(name: standardFont, size: 14)
         return textField
     }()
@@ -290,7 +294,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
     
     private lazy var repsTextField : UITextField = {
         let textField = UITextField()
-        textField.placeholder = "0"
+        textField.text = "0"
         textField.font = UIFont(name: standardFont, size: 14)
         return textField
     }()
@@ -299,7 +303,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
     
     private lazy var weightTextField : UITextField = {
         let textField = UITextField()
-        textField.placeholder = "0"
+        textField.text = "0"
         textField.font = UIFont(name: standardFont, size: 14)
         return textField
     }()
@@ -331,30 +335,32 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         
         // More Details Label
         
-        moreDetailsLabel.frame = CGRect(x: (contentView.frame.width / 5) * 4, y: y, width: (contentView.frame.width / 5) - xMargin, height: contentView.frame.height / 6 )
+        moreDetailsLabel.frame = CGRect(x: (contentView.frame.width / 5) * 3, y: y, width: (contentView.frame.width / 5) - xMargin, height: contentView.frame.height / 6 )
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(moreDetailsAction))
         moreDetailsLabel.addGestureRecognizer(tapRecognizer)
         contentView.addSubview(moreDetailsLabel)
         
-        y = y + titleLabel.frame.height + 10
+        y = y + titleLabel.frame.height + 20
         
         // Exercise Preview Image
-        mediaImageView.frame = CGRect(x: xMargin, y: y, width: (contentView.frame.width / 4), height: contentView.frame.height / 2)
+        mediaImageView.frame = CGRect(x: xMargin, y: y, width: (contentView.frame.width / 4), height: contentView.frame.height / 2 + 10)
         contentView.addSubview(mediaImageView)
         
         // Progress Data
-        setsLabel.frame = CGRect(x: mediaImageView.frame.width + 2 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
+        setsLabel.frame = CGRect(x: mediaImageView.frame.width * 2 + 5 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
         contentView.addSubview(setsLabel)
         
         setsTextField.frame = CGRect(x: setsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: setsLabel.frame.height)
+        setsTextField.delegate = self
         contentView.addSubview(setsTextField)
         
         setsTextField.text = String(describing: progressInfo?.last?.sets)
         
         y = y + (mediaImageView.frame.height / 3)
         
-        repsLabel.frame = CGRect(x: mediaImageView.frame.width + 2 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
+        repsLabel.frame = CGRect(x: mediaImageView.frame.width * 2 + 5 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
+        repsTextField.delegate = self
         contentView.addSubview(repsLabel)
         
         repsTextField.frame = CGRect(x: repsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: repsLabel.frame.height)
@@ -364,10 +370,11 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
         
         y = y + (mediaImageView.frame.height / 3)
         
-        weightLabel.frame = CGRect(x: mediaImageView.frame.width + 2 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
+        weightLabel.frame = CGRect(x: mediaImageView.frame.width * 2 + 5 * xMargin, y: y, width: contentView.frame.width / 4, height: mediaImageView.frame.height / 6)
         contentView.addSubview(weightLabel)
         
         weightTextField.frame = CGRect(x: weightLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: weightLabel.frame.height)
+        weightTextField.delegate = self
         contentView.addSubview(weightTextField)
         
         weightTextField.text = String(describing: progressInfo?.last?.weight)
@@ -402,6 +409,17 @@ class ExerciseCollectionViewCell : UICollectionViewCell {
     
     func viewProgressAction() {
         print("view progress action")
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        
+        let textValue = Int(text)
+        
+        guard textValue != nil else { textField.text = "0"; return }
+        
+        if textValue! > 999 { textField.text = "999" }
+        else if textValue! < 0 { textField.text = "0" }
     }
     
 }

@@ -24,10 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window!.backgroundColor = UIColor.white
         
+        let searchNav = UINavigationController()
         let searchVC = HomeVC()
-        searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "searchTabIcon"), tag: 1)
+        searchNav.viewControllers = [searchVC]
+        searchNav.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "searchTabIcon"), tag: 1)
         
+        let homeNav = UINavigationController()
         let homeVC = HomeVC()
+        homeNav.viewControllers = [homeVC]
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "homeTabIcon"), tag: 1)
         
         let routinesNav = UINavigationController()
@@ -35,15 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         routinesNav.viewControllers = [routinesVC]
         routinesNav.tabBarItem = UITabBarItem(title: "Exercises", image: UIImage(named: "exercisesTabIcon"), tag: 1)
         
+        let settingsNav = UINavigationController()
         let settingsVC = RoutineViewerVC()
+        settingsNav.viewControllers = [settingsVC]
         settingsVC.routine = DMM.routines[0]
         settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settingsTabIcon"), tag: 1)
         
         let tabs = UITabBarController()
-        tabs.viewControllers = [searchVC, routinesNav, homeVC, settingsVC]
+        tabs.viewControllers = [searchNav, routinesNav, homeNav, settingsNav]
         UITabBar.appearance().barTintColor = UIColor(red: 78/255, green: 179/255, blue: 212/255, alpha: 1)
         UITabBar.appearance().tintColor = UIColor.white
-        tabs.selectedViewController = homeVC
+        tabs.selectedViewController = homeNav
         
         self.window!.rootViewController = tabs
         self.window!.makeKeyAndVisible()
@@ -73,7 +79,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
 }
 
 extension UIApplication {
@@ -94,7 +103,11 @@ extension UIApplication {
 }
 
 extension UIViewController {
-    func pushViewController(VC: UIViewController, animated: Bool) {
-        (self as? UINavigationController)?.pushViewController(VC, animated: animated)
+    func tabPushViewController(VC: UIViewController, animated: Bool) {
+        guard let tabController = self as? UITabBarController else { return }
+        let currentIndex = tabController.selectedIndex
+        
+        (tabController.childViewControllers[currentIndex] as? UINavigationController)?.pushViewController(VC, animated: animated)
     }
 }
+
