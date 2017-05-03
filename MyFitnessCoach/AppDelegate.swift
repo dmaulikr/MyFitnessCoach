@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settingsNav = UINavigationController()
         let settingsVC = RoutineViewerVC()
         settingsNav.viewControllers = [settingsVC]
-        settingsVC.routine = DMM.routines[0]
+        settingsVC.routine = DMM.getRoutines()?[0]
         settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settingsTabIcon"), tag: 1)
         
         let tabs = UITabBarController()

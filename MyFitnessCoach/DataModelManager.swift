@@ -14,10 +14,11 @@ final class DataModelManager {
     
     static let sharedManager = DataModelManager()
     
-    var schedule = Schedule()
-    var checkInDates = [Date]()
-    var savedExercises = [Exercise]()
-    var routines = [Routine]()
+    private var schedule = Schedule()
+    private var checkInDates = [Date]()
+    private var savedExercises = [Exercise]()
+    private var routines = [Routine]()
+    private var currentRoutine : Routine?
     
     // sample data
     init() {
@@ -36,9 +37,18 @@ final class DataModelManager {
         var sampleExercise2 = sampleExercise
         sampleExercise2.title = "Sample Exercise 2"
         
+        var sampleExercise3 = sampleExercise
+        sampleExercise2.title = "Sample Exercise 2"
+        
+        var sampleExercise4 = sampleExercise
+        sampleExercise2.title = "Sample Exercise 2"
+        
+        var sampleExercise5 = sampleExercise
+        sampleExercise2.title = "Sample Exercise 2"
+        
         var sampleRoutine = Routine()
         sampleRoutine.title = "Sample Routine"
-        sampleRoutine.exercisesIncluded = [sampleExercise, sampleExercise2]
+        sampleRoutine.exercisesIncluded = [sampleExercise, sampleExercise2, sampleExercise3, sampleExercise4, sampleExercise5]
         sampleRoutine.creatorName = "System"
         
         routines = [sampleRoutine]
@@ -67,4 +77,29 @@ final class DataModelManager {
         
         return newExercise
     }
+    
+    func setCurrentRoutine(routine : Routine) {
+        self.currentRoutine = routine
+    }
+    
+    func getCurrentRoutine()->Routine? {
+        return self.currentRoutine
+    }
+    
+    func getSchedule()->Schedule? {
+        return self.schedule
+    }
+    
+    func getCheckInDates()->[Date]? {
+        return self.checkInDates
+    }
+    
+    func getExercises()->[Exercise]? {
+        return self.savedExercises
+    }
+    
+    func getRoutines()->[Routine]? {
+        return self.routines
+    }
+    
 }

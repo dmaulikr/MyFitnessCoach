@@ -67,10 +67,15 @@ class WeeklyScheduleView : UIView {
             dayStatusViews[i].date = dateForCurrentStatusView
             dayStatusViews[i].dayCheckInStatus = calculateCheckInStatus(dateToCheck: dateForCurrentStatusView)
             
-            dayStatusViews[i].linkedRoutine = DMM.routines[0] // placeholder
+            dayStatusViews[i].linkedRoutine = DMM.getRoutines()?[0] // placeholder
             
             dateForCurrentStatusView = Date(timeInterval: TimeInterval(24 * 3600), since: dateForCurrentStatusView)
             addSubview(dayStatusViews[i])
+            
+            if Date().dayNumberOfWeek() == i + 1 {
+                guard let todaysRoutine = dayStatusViews[i].linkedRoutine else { continue }
+                DMM.setCurrentRoutine(routine: todaysRoutine)
+            }
         }
         
         /*expandButton.frame = CGRect(x: (dayStatusViews.last?.frame.maxX)!, y: (dayStatusViews.last?.frame.minY)!, width: singleViewWidth, height: screenHeight / 9)
@@ -165,7 +170,7 @@ class WeekdayStatusView : UIView {
     }
     
     func refresh() {
-        let fillInBox = UIView(frame: CGRect(x: 2, y: dayLabel.frame.height + 10, width : (screenWidth - 44) / 8 - 4, height : calendarDayImage.frame.height - dayLabel.frame.height - 14))
+        let fillInBox = UIView(frame: CGRect(x: 2, y: dayLabel.frame.height + 9, width : (screenWidth - 44) / 8 - 3, height : calendarDayImage.frame.height - dayLabel.frame.height - 12))
         switch dayCheckInStatus! {
         case .checkedIn:
             fillInBox.backgroundColor = UIColor.green

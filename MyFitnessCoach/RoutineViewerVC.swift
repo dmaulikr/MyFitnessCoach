@@ -42,15 +42,29 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     
     private lazy var detailsSwitch : UILabel = createBasicLabel(font: UIFont(name: standardFont, size: 16), text: "Details Off")
     
+    private lazy var deleteModeSwitch : UISwitch = {
+        let switchToggle = UISwitch()
+        switchToggle.isUserInteractionEnabled = true
+        switchToggle.isOn = false
+        return switchToggle
+    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.topViewController?.title = routine?.title
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let xMargin : CGFloat = 10
-        var y : CGFloat = 20
+        var y : CGFloat = 30
         
         if let navigationBarHeight = self.navigationController?.navigationBar.frame.height {
             y = y + navigationBarHeight
         }
+        
+        view.backgroundColor = UIColor.white
         
         // Routine and Creator Label and Names
         
@@ -95,8 +109,16 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         // TableView/CollectionView Container View
         let exercisesContainerView : UIView = UIView(frame: CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 5 * (screenHeight / 8) - 20))
         
-        let containerOptionsTab = UIView(frame: CGRect(x: 0, y: 0, width: exercisesContainerView.frame.width, height: 25))
-        containerOptionsTab.backgroundColor = UIColor.white
+        let containerOptionsTab = UIView(frame: CGRect(x: 0, y: 0, width: exercisesContainerView.frame.width, height: 35))
+        
+        // Delete and Adding Actions
+        let deleteModeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
+        deleteModeLabel.text = "Delete"
+        containerOptionsTab.addSubview(deleteModeLabel)
+        
+        deleteModeSwitch.frame = CGRect(x: 2 * xMargin + deleteModeLabel.frame.width, y: 0, width: 15, height: 10)
+        containerOptionsTab.addSubview(deleteModeSwitch)
+        
         exercisesContainerView.addSubview(containerOptionsTab)
         
         exerciseTableView = UITableView(frame: CGRect(x: 0, y: containerOptionsTab.frame.height, width: exercisesContainerView.frame.width, height: exercisesContainerView.frame.height - containerOptionsTab.frame.height))
@@ -142,6 +164,10 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    func deleteExerciseAction() {
+        print("deleted")
+    }
+    
     // MARK: Table View
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -160,7 +186,11 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
-        
+        if deleteModeSwitch.isOn {
+            print("Deleted")
+        } else {
+            print("else")
+        }
     }
     
     // MARK: Collection View
@@ -177,7 +207,11 @@ final class RoutineViewerVC : UIViewController, UITableViewDelegate, UITableView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if deleteModeSwitch.isOn {
+            print("Deleted")
+        } else {
+            print("else")
+        }
     }
     
     // MARK : Collection View Flow Layout
@@ -355,7 +389,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell, UITextFieldDelegate {
         setsTextField.delegate = self
         contentView.addSubview(setsTextField)
         
-        setsTextField.text = String(describing: progressInfo?.last?.sets)
+        setsTextField.text = String(describing: progressInfo?.last?.sets ?? 0)
         
         y = y + (mediaImageView.frame.height / 3)
         
@@ -366,7 +400,7 @@ class ExerciseCollectionViewCell : UICollectionViewCell, UITextFieldDelegate {
         repsTextField.frame = CGRect(x: repsLabel.frame.maxX + xMargin, y: y, width: contentView.frame.width / 4, height: repsLabel.frame.height)
         contentView.addSubview(repsTextField)
         
-        repsTextField.text = String(describing: progressInfo?.last?.reps)
+        repsTextField.text = String(describing: progressInfo?.last?.reps ?? 0)
         
         y = y + (mediaImageView.frame.height / 3)
         
@@ -377,9 +411,9 @@ class ExerciseCollectionViewCell : UICollectionViewCell, UITextFieldDelegate {
         weightTextField.delegate = self
         contentView.addSubview(weightTextField)
         
-        weightTextField.text = String(describing: progressInfo?.last?.weight)
+        weightTextField.text = String(describing: progressInfo?.last?.weight ?? 0)
         
-        y = y + (mediaImageView.frame.height / 3) + 10
+        y = y + (mediaImageView.frame.height / 3)
         
         // Benchmark and Progress Button
         
@@ -389,13 +423,8 @@ class ExerciseCollectionViewCell : UICollectionViewCell, UITextFieldDelegate {
         benchmarkButton.frame = CGRect(x: xMargin, y: y, width: contentView.frame.width / 2 - 2 * xMargin, height: contentView.frame.height / 6)
         contentView.addSubview(benchmarkButton)
         
-        progressButton.frame = CGRect(x: xMargin, y: y, width: contentView.frame.width / 2 - 2 * xMargin, height: contentView.frame.height / 6)
+        progressButton.frame = CGRect(x: benchmarkButton.frame.maxX + xMargin, y: y, width: contentView.frame.width / 2 - 2 * xMargin, height: contentView.frame.height / 6)
         contentView.addSubview(progressButton)
-        
-        // Creator Label
-        creatorLabel.frame = CGRect(x: xMargin, y: (contentView.frame.height) - 10, width: contentView.frame.width - 2 * xMargin, height: (contentView.frame.height / 6))
-        creatorLabel.text = "Submitted By: \(creator)"
-        contentView.addSubview(creatorLabel)
         
     }
     

@@ -88,8 +88,8 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         // Weekly Schedule View
         
         let weekCalendarView = WeeklyScheduleView(frame: CGRect(x: xMargin, y: y, width: screenWidth - 40, height: screenHeight / 9))
-        weekCalendarView.schedule = DMM.schedule
-        weekCalendarView.checkedInDates = DMM.checkInDates
+        weekCalendarView.schedule = DMM.getSchedule()
+        weekCalendarView.checkedInDates = DMM.getCheckInDates()
         view.addSubview(weekCalendarView)
         
         y = y + weekCalendarView.frame.height + 10
@@ -110,7 +110,11 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         
         y = y + currentWorkoutLabel.frame.height + 10
         
-        workoutContainerView.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 140)
+        let workoutTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(HomeVC.workoutTapAction))
+        workoutContainerView.isUserInteractionEnabled = true
+        workoutContainerView.addGestureRecognizer(workoutTapGestureRecognizer)
+        
+        workoutContainerView.frame = CGRect(x: xMargin, y: y, width: screenWidth - 2 * xMargin, height: 170)
         view.addSubview(workoutContainerView)
         
         y = y + workoutContainerView.frame.height + 10
@@ -118,6 +122,7 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         // Check In Button
         
         checkInButton.frame = CGRect(x: xMargin, y: y, width: view.frame.width - 2 * xMargin, height: 75)
+        checkInButton.setImage(UIImage(named: "button_check-in"), for: .normal)
         view.addSubview(checkInButton)
         
         y = y + checkInButton.frame.height + 10
@@ -125,6 +130,7 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
         // ADD IN TODAY'S WORKOUT AREA
         
         editScheduleButton.frame = CGRect(x: xMargin, y: y, width: view.frame.width - 2 * xMargin, height: 75)
+        editScheduleButton.setImage(UIImage(named: "button_edit-schedule"), for: .normal)
         view.addSubview(editScheduleButton)
         
     }
@@ -140,15 +146,25 @@ class HomeVC: UIViewController, WeeklyScheduleViewDelegate {
     }
     
     func editScheduleAction() {
+        let scheduleEditVC = ScheduleEditorVC()
+        UIApplication.shared.keyWindow?.rootViewController?.tabPushViewController(VC: scheduleEditVC, animated: true)
         print("edit schedule button pressed")
     }
     
     func checkInAction() {
+        
         print("check in action pressed")
     }
     
+    func workoutTapAction() {
+        guard let displayRoutine = DMM.getCurrentRoutine() else { return }
+        let routineViewerVC = RoutineViewerVC()
+        routineViewerVC.routine = displayRoutine
+        UIApplication.shared.keyWindow?.rootViewController?.tabPushViewController(VC: routineViewerVC, animated: true)
+    }
+    
     func getCheckInsForLast(timeFrame: TimeInterval)->[Date]? {
-        let validDates = DMM.checkInDates.filter {
+        let validDates = DMM.getCheckInDates()?.filter {
             return ($0.timeIntervalSinceNow > -timeFrame)
         }
         return validDates
